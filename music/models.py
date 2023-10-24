@@ -1,4 +1,5 @@
 from flask_login import UserMixin
+from datetime import datetime
 from . import db
 class User(db.Model, UserMixin):
     __tablename__ = 'users' # good practice to specify table name
