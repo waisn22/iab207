@@ -22,7 +22,7 @@ class Event(db.Model):
     name = db.Column(db.String(80))
     description = db.Column(db.String(200))
     image = db.Column(db.String(400))
-    currency = db.Column(db.String(3))
+    price = db.Column(db.String(3))
     category = db.Column(db.String(200))
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
