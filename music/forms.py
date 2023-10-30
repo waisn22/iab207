@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField
-from wtforms.validators import InputRequired, Email, EqualTo
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, DateField, TimeField
+from wtforms.validators import InputRequired, Email, EqualTo, NumberRange
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'png', 'jpg', 'jpeg'}
@@ -37,3 +37,17 @@ class RegisterForm(FlaskForm):
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Create')
+  
+#Select Event
+class EventSelectForm(FlaskForm):
+  name = StringField("Event Name", validators=[InputRequired()])
+  date = DateField("Date", validators=[InputRequired()])
+  time = TimeField("Time", validators=[InputRequired()])
+  
+#Purchase Ticket
+class TicketForm(FlaskForm):
+  user_name = StringField("User Name", validators=[InputRequired()])
+  email_id = StringField("Email Address", validators=[Email("Please enter a valid email")])
+  quant_tickets = IntegerField("Quantity of Tickets", validators=[InputRequired(), NumberRange(0-10)])
+  
+  
