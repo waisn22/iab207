@@ -38,5 +38,7 @@ class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Create')
 
-  class TickForm(FlaskForm):
-    quantity = IntegerField("Quantity", validators=[InputRequired("Enter a quantity")])
+# class TickForm(FlaskForm):
+#   quantity = IntegerField("Number of Tickets", validators=[InputRequired("Enter a quantity")])
+
+#   submit = SubmitField("show")
