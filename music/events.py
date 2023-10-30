@@ -72,3 +72,5 @@ def comment(id):
       # print('Your comment has been added', 'success') 
     # using redirect sends a GET request to event.show
     return redirect(url_for('event.show', id=id))
+  
+#@eventbp.route('/c')
