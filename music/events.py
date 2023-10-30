@@ -9,6 +9,7 @@ from flask_login import login_required, current_user
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
 
+<<<<<<< HEAD
 #@eventbp.route('/<id>')
 #def show(id):
  #   event = db.session.scalar(db.select(Event).where(Event.id==id))
@@ -20,6 +21,8 @@ eventbp = Blueprint('event', __name__, url_prefix='/events')
 def show():
   print('Method type: ', request.method)
   return render_template('event/show.html')
+=======
+>>>>>>> b938ffc (change)
 # @eventbp.route('/<id>')
 # def show(id):
 #     event = db.session.scalar(db.select(Event).where(Event.id==id))
