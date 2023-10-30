@@ -37,3 +37,6 @@ class RegisterForm(FlaskForm):
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Create')
+
+  class TickForm(FlaskForm):
+    quantity = IntegerField("Quantity", validators=[InputRequired("Enter a quantity")])
