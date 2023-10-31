@@ -15,31 +15,43 @@
                 <p class="card-text">Category: Rock</p>
                 <p class="card-text">Event Price: $40</p>
 
+                <button class="btn btn-warning col-md-12" 
+                data-bs-toggle="modal" data-bs-target="#purchase">
+                Book Tickets
+                </button>
+
 
             </div>
         </div>
 
-      
-        <div class="card mt-4">
-            <div class="card-body">
-                <h2 class="card-title">Book Your Tickets</h2>
-                <form>
-                    <div class="col-lg-12">
-                        <label for="name" class="form-label">Your Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="eg. Steve Smith" required>
-                    </div>
-                    <div class="col-lg-12 ">
-                        <label for="email" class="form-label">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" placeholder="eg. Steve@gmail,com" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="quantity" class="form-label">Number of Tickets</label>
-                        <input type="number" class="form-control" id="quantity" name="quantity" placeholder="eg. 4" required>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Book Now</button>
-                </form>
+    
+
+      <div class="modal fade" id="purchase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Booking</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+  
+            <div class="modal-body">
+              <div class="mb-3">
+                <label for="events" class="col-form-label" >Number of Tickets: </label>
+                <input type="number" class="form-control" required>
+                
+
+              </div>
+            </div>
+  
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary">Proceed to Billing</button>
+            </div>
+          </div>
         </div>
+      </div>
+
+
         
         <div class="card mt-4">
             <div class="card-body">
