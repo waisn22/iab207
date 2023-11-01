@@ -3,9 +3,7 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
-<div class="page-header">
-    <h4>{{heading}}</h4>
-</div>
+
 
 {% with messages = get_flashed_messages() %}
 {% if messages %}
@@ -18,12 +16,21 @@
 {% endwith %}
 
 <div class="col-md-6">
+  <div class = login-card>
+    <div class="page-header">
+      <h4>{{heading}}</h4>
+  </div>
+  
     {{ render_form(form)}}
+  </div>
     </div>
 
 {% if heading|lower =='login' %}
 <div class="col-md-4">
+  <div class="register-card">
+        <div class="register-content">
     <p>New user? <a href="{{ url_for('auth.register') }}">Click here to register</a>.</p>
+</div>
 </div>
 {% endif %}
 
