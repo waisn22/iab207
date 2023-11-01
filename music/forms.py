@@ -1,20 +1,39 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, DateField, TimeField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, DateField, TimeField, SelectField, DecimalField
 from wtforms.validators import InputRequired, Email, EqualTo, NumberRange
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'png', 'jpg', 'jpeg'}
 
-#Create new event
+# Create new event
 class EventForm(FlaskForm):
-  name = StringField('Music', validators=[InputRequired()])
-  description = TextAreaField('Description', 
-            validators=[InputRequired()])
-  image = FileField('Event Image', validators=[
-    FileRequired(message='Image cannot be empty'),
-    FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
-  submit = SubmitField("Create")
-    
+    name = StringField('Event Name', validators=[InputRequired()])
+    status = SelectField('Event Status', choices=[
+        ('open', 'Open'),
+        ('inactive', 'Inactive'),
+        ('sold-out', 'Sold out'),
+        ('cancelled', 'Cancelled')
+    ], validators=[InputRequired()])
+    date = DateField('Event Date', format='%Y-%m-%d', validators=[InputRequired()])
+    location = StringField('Event Location', validators=[InputRequired()])
+    start_time = TimeField('Start Time', validators=[InputRequired()])
+    end_time = TimeField('End Time', validators=[InputRequired()])
+    category = SelectField('Event Category', choices=[
+        ('concert', 'Concert'),
+        ('rock', 'Rock'),
+        ('jazz', 'Jazz'),
+        ('rap', 'Rap'),
+        ('blues', 'Blues'),
+        ('hip-hop', 'Hip Hop'),
+        ('rnb', 'R and B')
+    ])
+    price = DecimalField('Event Price (AUD)', places=2, validators=[InputRequired()])
+    ticketquantity = IntegerField("Quantity of Tickets", validators=[InputRequired()])
+    description = TextAreaField('Event Description', validators=[InputRequired()])
+    image = FileField('Event Image', validators=[InputRequired()])
+    submit_create = SubmitField("Create Event")
+    submit_update = SubmitField("Update Event")
+
 #User login
 class LoginForm(FlaskForm):
     user_name = StringField("User Name", validators=[InputRequired('Enter user name')])
