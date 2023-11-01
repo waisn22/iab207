@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
     <div class="container mt-5">
@@ -36,17 +37,14 @@
   
             <div class="modal-body">
               <div class="mb-3">
-                <label for="events" class="col-form-label" >Number of Tickets: </label>
-                <input type="number" class="form-control" required>
+
+                {{ render_form(ticket_form) }}
+
                 
 
               </div>
             </div>
   
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Proceed to Billing</button>
-            </div>
           </div>
         </div>
       </div>
