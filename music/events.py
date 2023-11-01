@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Event, Comment
-from .forms import EventForm, CommentForm
+from .forms import EventForm, CommentForm, TicketForm
 from . import db
 import os
 from werkzeug.utils import secure_filename
@@ -19,7 +19,8 @@ eventbp = Blueprint('event', __name__, url_prefix='/events')
 @eventbp.route('/show', methods=['GET', 'POST'])
 def show():
   print('Method type: ', request.method)
-  return render_template('event/show.html')
+  ticket_form = TicketForm()
+  return render_template('event/show.html', ticket_form = ticket_form)
 # @eventbp.route('/<id>')
 # def show(id):
 #     event = db.session.scalar(db.select(Event).where(Event.id==id))
@@ -27,9 +28,12 @@ def show():
 #     form = CommentForm()    
 #     return render_template('event/show.html', event=event, form=form)
   
-@eventbp.route('/show')
-def show():
-  return render_template('event/show.html')
+@eventbp.route('/bookticket')
+@login_required
+def booking():
+  tag_line='Using Flask Bootstrap'
+  ticket_form = TicketForm()
+  return redirect(url_for('event.show', id=id),ticket_form=ticket_form)
 
 @eventbp.route('/create', methods=['GET', 'POST'])
 @login_required
