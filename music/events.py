@@ -27,9 +27,7 @@ def show():
 #     form = CommentForm()    
 #     return render_template('event/show.html', event=event, form=form)
   
-@eventbp.route('/show')
-def show():
-  return render_template('event/show.html')
+
 
 @eventbp.route('/create', methods=['GET', 'POST'])
 @login_required
