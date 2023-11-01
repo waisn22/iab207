@@ -56,7 +56,6 @@ class RegisterForm(FlaskForm):
 class CommentForm(FlaskForm):
   text = TextAreaField('Comment', [InputRequired()])
   submit = SubmitField('Create')
-<<<<<<< HEAD
   
 #Select Event
 class EventSelectForm(FlaskForm):
@@ -72,10 +71,3 @@ class TicketForm(FlaskForm):
   checkout = SubmitField("Checkout")
   
   
-=======
-
-# class TickForm(FlaskForm):
-#   quantity = IntegerField("Number of Tickets", validators=[InputRequired("Enter a quantity")])
-
-#   submit = SubmitField("show")
->>>>>>> b938ffc (change)
