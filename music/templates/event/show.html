@@ -18,11 +18,15 @@
                 <p class="card-text">Category: {{event.category}}</p>
                 <p class="card-text">Event Price: ${{event.price}}</p>
 
-                <button class="btn btn-warning col-md-12" 
-                data-bs-toggle="modal" data-bs-target="#purchase">
-                Book Tickets
-                </button>
-
+                {% if current_user.is_authenticated %}
+                <button class="btn btn-warning col-md-12" data-bs-toggle="modal" data-bs-target="#purchase"> Book Tickets </button>
+                {% else %}
+                <h5>You Must Log in to Book Tickets</h5>
+                <br>
+                <button  class="nav-item nav-link custom-signin-btn" href="{{ url_for('auth.register') }}">Register</button >
+                <br>
+                <button  class="nav-item nav-link custom-signin-btn" href="{{ url_for('auth.login') }}">Log In</button >
+                {% endif %}
 
             </div>
         </div>
