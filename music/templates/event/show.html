@@ -23,9 +23,9 @@
                 {% else %}
                 <h5>You Must Log in to Book Tickets</h5>
                 <br>
-                <button  class="nav-item nav-link custom-signin-btn" href="{{ url_for('auth.register') }}">Register</button >
+                <button  class="custom-signin-btn" data-bs-toggle="modal" data-bs-target="#register">Register</button >
                 <br>
-                <button  class="nav-item nav-link custom-signin-btn" href="{{ url_for('auth.login') }}">Log In</button >
+                <button  class="custom-signin-btn" data-bs-toggle="modal" data-bs-target="#login">Log In</button >
                 {% endif %}
 
             </div>

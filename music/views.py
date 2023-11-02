@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 from .models import Event
+from .forms import RegisterForm, LoginForm
 from . import db
 
 bp = Blueprint('main', __name__)
@@ -8,8 +9,11 @@ bp = Blueprint('main', __name__)
 @bp.route('/')
 def index():
     
+    registerform = RegisterForm
+    loginform = LoginForm
+
     event = db.session.scalars(db.select(Event)).all()
-    return render_template('index.html', event=event)
+    return render_template('index.html', event=event, register_form = registerform, login_form = loginform)
 @bp.route('/search')
 def search():
     if request.args['search'] and request.args['search'] != "":

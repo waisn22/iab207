@@ -32,7 +32,7 @@ def register():
             return redirect(url_for('main.index'))
     #the else is called when the HTTP request calling this page is a GET
     else:
-        return render_template('event/forms.html', form=register, heading='Register')
+        return render_template('user.html', form=register, heading='Register')
     
 
 @authbp.route('/login', methods = ['GET', 'POST'])
@@ -58,9 +58,9 @@ def login():
       print(error)
       flash(error)
     #it comes here when it is a get method
-  return render_template('event/forms.html', form=login, heading='Login')
+  return render_template('user.html', form=login, heading='Login')
 
 @authbp.route('/logout')
 def logout():
   logout_user()
-  return 'Successfully logged out user'
+  return redirect(url_for('main.index'))
