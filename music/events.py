@@ -1,3 +1,4 @@
+from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Event, Comment
 from .forms import EventForm, CommentForm, TicketForm
@@ -9,20 +10,13 @@ from flask_login import login_required, current_user
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
 
-
-
-@eventbp.route('/show', methods=['GET', 'POST'])
-def show():
+@eventbp.route('/<id>')
+def show(id):
   print('Method type: ', request.method)
+  event = db.session.scalar(db.select(Event).where(Event.id==id))
   ticket_form = TicketForm()
-  return render_template('event/show.html', ticket_form = ticket_form)
-# @eventbp.route('/<id>')
-# def show(id):
-#     event = db.session.scalar(db.select(Event).where(Event.id==id))
-#     # create the comment form
-#     form = CommentForm()    
-#     return render_template('event/show.html', event=event, form=form)
-  
+  comment_form = CommentForm()
+  return render_template('event/show.html', event = event, ticket_form = ticket_form, comment_form = comment_form)
 
 @eventbp.route('/create', methods=['GET', 'POST'])
 @login_required
@@ -33,9 +27,13 @@ def create():
     #call the function that checks and returns image
     db_file_path = check_upload_file(form)
     #Add Creator ID
-    event = Event(name=form.name.data,description=form.description.data, 
-    image=db_file_path,price=form.price.data,category=form.category.data,
-    ticketquantity=form.ticketquantity.data)
+    event_date = form.date.data
+    start_datetime = datetime.combine(event_date, form.start_time.data)
+    end_datetime = datetime.combine(event_date, form.end_time.data)
+    event = Event(creatorid= current_user.id,name=form.name.data,description=form.description.data,venue=form.location.data,date=form.date.data,
+                  starttime=start_datetime,endtime=end_datetime, 
+                  image=db_file_path,price=form.price.data,category=form.category.data,status=form.status.data,
+                  ticketquantity=form.ticketquantity.data)
     # add the object to the db session
     db.session.add(event)
     # commit to the database
@@ -67,7 +65,7 @@ def comment(id):
     event = db.session.scalar(db.select(Event).where(Event.id==id))
     if form.validate_on_submit():  
       #read the comment from the form
-      comment = Comment(text=form.text.data, event=event,
+      comment = Comment(text=form.text.data, event_id=event.id,
                         user=current_user) 
       #here the back-referencing works - comment.event is set
       # and the link is created

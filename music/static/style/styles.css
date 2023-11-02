@@ -233,3 +233,18 @@ custom-footer {
     margin-top: 20px;
 }
 
+.event-form h2 {
+    margin-right: 200px; 
+  }
+
+.comment-form h5  {
+    margin-top: 10px;
+    margin-left: 20px; 
+  }
+
+.comment-form div  {
+    margin-left: 10px;
+    margin-right: 10px; 
+    margin-bottom: 10px;
+  }
+

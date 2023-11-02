@@ -22,9 +22,14 @@ class Event(db.Model):
     creatorid = db.Column(db.Integer)
     name = db.Column(db.String(80))
     description = db.Column(db.String(200))
+    venue = db.Column(db.String(200))
+    date = db.Column(db.DateTime)
+    starttime = db.Column(db.DateTime)
+    endtime = db.Column(db.DateTime) 
     image = db.Column(db.String(200))
     price = db.Column(db.Numeric(precision=10, scale=2))
-    category = db.Column(db.String(200))
+    category = db.Column(db.String(80))
+    status = db.Column(db.String(80))
     ticketquantity = db.Column(db.Integer)
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
@@ -40,7 +45,7 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     # add the foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    events_id = db.Column(db.Integer, db.ForeignKey('events.id'))
+    event_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
     def __repr__(self):
         return f"Comment: {self.text}"
