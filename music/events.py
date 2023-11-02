@@ -1,6 +1,7 @@
+import uuid
 from datetime import datetime
 from flask import Blueprint, render_template, request, redirect, url_for, flash
-from .models import Event, Comment
+from .models import Event, Comment, Ticket
 from .forms import EventForm, CommentForm, TicketForm
 from . import db
 import os
@@ -10,13 +11,29 @@ from flask_login import login_required, current_user
 
 eventbp = Blueprint('event', __name__, url_prefix='/events')
 
-@eventbp.route('/<id>')
+@eventbp.route('/<id>', methods=['GET','POST'])
 def show(id):
   print('Method type: ', request.method)
   event = db.session.scalar(db.select(Event).where(Event.id==id))
+  totaltickets = event.ticketquantity - event.boughttickets
   ticket_form = TicketForm()
   comment_form = CommentForm()
-  return render_template('event/show.html', event = event, ticket_form = ticket_form, comment_form = comment_form)
+
+
+  if (ticket_form.validate_on_submit()==True):
+    for i in range(ticket_form.quant_tickets.data):
+      order_number = str(uuid.uuid4())
+      ticket = Ticket(order_number = order_number, event_id=event.id,
+                        user=current_user)
+      db.session.add(ticket)
+      flash(f'Ticket {str(i+1)} Booked: Order No {order_number}', "success")
+    
+    db.session.commit()
+    return redirect(url_for('event.show', id=id))
+    
+
+
+  return render_template('event/show.html', event = event, ticket_form = ticket_form, comment_form = comment_form, totaltickets = totaltickets)
 
 @eventbp.route('/create', methods=['GET', 'POST'])
 @login_required
@@ -33,7 +50,7 @@ def create():
     event = Event(creatorid= current_user.id,name=form.name.data,description=form.description.data,venue=form.location.data,date=form.date.data,
                   starttime=start_datetime,endtime=end_datetime, 
                   image=db_file_path,price=form.price.data,category=form.category.data,status=form.status.data,
-                  ticketquantity=form.ticketquantity.data)
+                  ticketquantity=form.ticketquantity.data, boughttickets = 0)
     # add the object to the db session
     db.session.add(event)
     # commit to the database

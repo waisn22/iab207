@@ -62,8 +62,6 @@ class EventSelectForm(FlaskForm):
   
 #Purchase Ticket
 class TicketForm(FlaskForm):
-  user_name = StringField("User Name", validators=[InputRequired()])
-  email_id = StringField("Email Address", validators=[Email("Please enter a valid email")])
   quant_tickets = IntegerField("Quantity of Tickets", validators=[InputRequired(), NumberRange(0-10)])
   checkout = SubmitField("Checkout")
   

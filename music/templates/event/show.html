@@ -17,15 +17,12 @@
                 <p class="card-text">Description: {{event.description}}</p>
                 <p class="card-text">Category: {{event.category}}</p>
                 <p class="card-text">Event Price: ${{event.price}}</p>
+                <p class="card-text">Number of Available Tickets: {{totaltickets}}</p>
 
                 {% if current_user.is_authenticated %}
                 <button class="btn btn-warning col-md-12" data-bs-toggle="modal" data-bs-target="#purchase"> Book Tickets </button>
                 {% else %}
                 <h5>You Must Log in to Book Tickets</h5>
-                <br>
-                <button  class="custom-signin-btn" data-bs-toggle="modal" data-bs-target="#register">Register</button >
-                <br>
-                <button  class="custom-signin-btn" data-bs-toggle="modal" data-bs-target="#login">Log In</button >
                 {% endif %}
 
             </div>
@@ -48,6 +45,19 @@
           </div>
         </div>
       </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-success">
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
 
       <!-- Comments -->>
       
