@@ -30,7 +30,7 @@ def register():
             db.session.commit()
             
             return redirect(url_for('main.index'))
-    #the else is called when the HTTP request calling this page is a GET
+    
     else:
         return render_template('user.html', form=register, heading='Register')
     
@@ -44,20 +44,20 @@ def login():
     password = login.password.data
     u1 = User.query.filter_by(name=user_name).first()
     
-        #if there is no user with that name
+        
     if u1 is None:
       error='Incorrect user name'
-    #check the password - notice password hash function
+    
     elif not check_password_hash(u1.password_hash, password): # takes the hash and password
       error='Incorrect password'
     if error is None:
-    #all good, set the login_user
+    
       login_user(u1)
       return redirect(url_for('main.index'))
     else:
       print(error)
       flash(error)
-    #it comes here when it is a get method
+    
   return render_template('user.html', form=login, heading='Login')
 
 @authbp.route('/logout')

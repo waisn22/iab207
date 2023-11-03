@@ -34,8 +34,7 @@ class Event(db.Model):
     status = db.Column(db.String(80))
     ticketquantity = db.Column(db.Integer)
     boughttickets = db.Column(db.Integer)
-    # ... Create the Comments db.relationship
-	# relation to call destination.comments and comment.destination
+
     comments = db.relationship('Comment', backref='events')
     bookings = db.relationship('Ticket', backref='events')
 
