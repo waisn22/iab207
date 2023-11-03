@@ -10,9 +10,7 @@ class EventForm(FlaskForm):
     name = StringField('Event Name', validators=[InputRequired()])
     status = SelectField('Event Status', choices=[
         ('open', 'Open'),
-        ('inactive', 'Inactive'),
-        ('sold-out', 'Sold out'),
-        ('cancelled', 'Cancelled')
+        ('inactive', 'Inactive')
     ], validators=[InputRequired()])
     date = DateField('Event Date', format='%Y-%m-%d', validators=[InputRequired()])
     location = StringField('Event Location', validators=[InputRequired()])
@@ -27,12 +25,11 @@ class EventForm(FlaskForm):
         ('hip-hop', 'Hip Hop'),
         ('rnb', 'R and B')
     ])
-    price = DecimalField('Event Price (AUD)', places=2, validators=[InputRequired()])
+    price = IntegerField('Event Price (AUD)', validators=[InputRequired()])
     ticketquantity = IntegerField("Quantity of Tickets", validators=[InputRequired()])
     description = TextAreaField('Event Description', validators=[InputRequired()])
     image = FileField('Event Image', validators=[InputRequired()])
     submit_create = SubmitField("Create Event")
-    submit_update = SubmitField("Update Event")
 
 #User login
 class LoginForm(FlaskForm):
@@ -65,9 +62,7 @@ class EventSelectForm(FlaskForm):
   
 #Purchase Ticket
 class TicketForm(FlaskForm):
-  user_name = StringField("User Name", validators=[InputRequired()])
-  email_id = StringField("Email Address", validators=[Email("Please enter a valid email")])
-  quant_tickets = IntegerField("Quantity of Tickets", validators=[InputRequired(), NumberRange(0-10)])
+  quant_tickets = IntegerField("Quantity of Tickets", validators=[InputRequired(), NumberRange(min=0)])
   checkout = SubmitField("Checkout")
   
   

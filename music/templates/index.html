@@ -4,32 +4,45 @@
 <div class="container mt-5">
     <h1>Concerts</h1>
     <div class="row">
-        <div class="col-md-6 offset-md-3">
+        <div class="col-md-6 col-lg-4 col-xl-3 offset-md-3 offset-lg-2 offset-xl-1 mt-1">
             <div class="custom-dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Search by Category
                 </button>
                 <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Concerts</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Rock</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Jazz</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Rap</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Blues</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Hip Hop</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">R and B</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{url_for('main.category', category='Concerts')}}">Concerts</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{url_for('main.category', category='Rock')}}">Rock</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{url_for('main.category', category='Jazz')}}">Jazz</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{url_for('main.category', category='Rap')}}">Rap</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{url_for('main.category', category='Blues')}}">Blues</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{url_for('main.category', category='Hip Hop')}}">Hip Hop</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{url_for('main.category', category='R and B')}}">R and B</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-6 offset-md-3 mt-3">
+        <div class="col-md-6 col-lg-4 col-xl-3 offset-md-3 offset-lg-2 offset-xl-1 mt-3">
             <div class="custom-dropdown">
                 <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Search by Status
+                    Search by Price
                 </button>
                 <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Open</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Inactive</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Sold out</a>
-                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.index') }}">Cancelled</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.price', price='0-49') }}">0-50</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.price', price='50-99') }}">50-100</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.price', price='100-249') }}">100-250</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.price', price='250-100000') }}">>250</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3 offset-md-3 offset-lg-2 offset-xl-1 mt-3">
+            <div class="custom-dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Search by Ticket Number
+                </button>
+                <div class="dropdown-menu custom-dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.ticketquantity', ticketquantity='0-49') }}">0-50</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.ticketquantity', ticketquantity='50-99') }}">50-100</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.ticketquantity', ticketquantity='100-249') }}">100-250</a>
+                    <a class="dropdown-item custom-dropdown-item" href="{{ url_for('main.ticketquantity', ticketquantity='250-100000') }}">>250</a>
                 </div>
             </div>
         </div>
@@ -37,7 +50,7 @@
 
     <!--div class="row my-5"-->
     <div class="card-group">
-        {% for event in events %}
+        {% for event in event %}
         <div class="col-lg-3 col-md-6 col-sm-12">
             <div class="card">
                 <img class="card-img-top" src="{{ event.image }}" alt="Event 1 Image">

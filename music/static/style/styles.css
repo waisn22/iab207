@@ -88,9 +88,22 @@ h2,h3 {
 
 .card {
     border: none;
+    margin: 7px;
     border-radius: 15px;
     box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
     transition: transform 0.3s;
+}
+
+.card-text-1{
+    max-height: 80px
+}
+
+.card-body-1 {
+    max-height: 200px;
+}
+
+.card-title-1 {
+    height: 50px;
 }
 
 .card:hover {
@@ -232,4 +245,19 @@ custom-footer {
 .event-description {
     margin-top: 20px;
 }
+
+.event-form h2 {
+    margin-right: 200px; 
+  }
+
+.comment-form h5  {
+    margin-top: 10px;
+    margin-left: 20px; 
+  }
+
+.comment-form div  {
+    margin-left: 10px;
+    margin-right: 10px; 
+    margin-bottom: 10px;
+  }
 

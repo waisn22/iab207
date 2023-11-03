@@ -1,31 +1,39 @@
 {% extends 'base.html' %}
+
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block content %}
     <div class="container mt-5">
-     
+        
+      <!-- Event -->>
         <div class="card">
-            <img src="static/img/img1.jpeg" class="card-img-small" alt="Event Image">
+            <img src="{{event.image}}" class="card-img-small" alt="Event Image">
             <div class="card-body">
-                <h5 class="card-title">Stevie G and the Lads</h5>
-                <p class="card-text">Date: September 15, 2023</p>
-                <p class="card-text">Event Status: Open</p>
-                <p class="card-text">Time: 3:00 PM - 6:00 PM</p>
-                <p class="card-text">Venue: Brisbane City Venue</p>
-                <p class="card-text">Description: Stevie G and the lads perform a rock performance that will rock your world, coming to Brisbane get your tickets now</p>
-                <p class="card-text">Category: Rock</p>
-                <p class="card-text">Event Price: $40</p>
+                <h5 class="card-title">{{event.name}}</h5>
+                <p class="card-text">Date: {{event.date}}</p>
+                <p class="card-text">Status: {{event.status}}</p>
+                <p class="card-text">Time: {{event.starttime}} - {{event.endtime}}</p>
+                <p class="card-text">Venue: {{event.venue}}</p>
+                <p class="card-text">Description: {{event.description}}</p>
+                <p class="card-text">Category: {{event.category}}</p>
+                <p class="card-text">Event Price: ${{event.price}}</p>
+                <p class="card-text">Number of Available Tickets: {{totaltickets}}</p>
 
-                <button class="btn btn-warning col-md-12" 
-                data-bs-toggle="modal" data-bs-target="#purchase">
-                Book Tickets
-                </button>
-
+                {% if current_user.is_authenticated %}
+                <button class="btn btn-warning col-md-12" data-bs-toggle="modal" data-bs-target="#purchase"> Book Tickets </button>
+                {% else %}
+                <h5>You Must Log in to Book Tickets</h5>
+                {% endif %}
 
             </div>
         </div>
 
-    
+  
+      {% if current_user.id == event.id %}
+        <button class="btn btn-warning col-md-12" data-bs-toggle="modal" data-bs-target="#update"> Update Event </button>
+      {% endif %}
+        
+        <!-- Tickets -->>
 
       <div class="modal fade" id="purchase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -34,46 +42,69 @@
               <h1 class="modal-title fs-5" id="exampleModalLabel">Booking</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-  
             <div class="modal-body">
               <div class="mb-3">
-
-                {{ render_form(form) }}
-
-                
-
+                {{ render_form(ticket_form) }}
               </div>
             </div>
-  
           </div>
         </div>
       </div>
 
+<!-- Update Event -->
 
-        
+      <div class="modal fade" id="update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                {{ render_form(form) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-success">
+          <ul>
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+    {% endwith %}
+
+
+      <!-- Comments -->>
+      
         <div class="card mt-4">
             <div class="card-body">
-                <h2 class="card-title">Comments</h2>
-        
+                <h2 class="card-title">Comments</h2>    
+                {% for comment in event.comments %}
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">James Love</h5>
-                        <p class="card-text">Great event! I really enjoyed it last time there were in Brisbane.</p>
-                    </div>
-                <br>
-                <div class="card mb-3">
-                    <div class="card-body">
-                            <h5 class="card-title">Tom Jones</h5>
-                            <p class="card-text">My top rock artist lets goo boys!!!.</p>
+                        <b class="card-title">{{comment.user.name}} <span class="ml-2 text-muted"> - </span></b>
+                        <b class="ml-2 text-muted">{{comment.created_at.strftime("%B %d, %Y %H:%M")}}</b>
+                        <p class="card-text">{{comment.text}}</p>
                     </div>
                 </div>
+                {% endfor %}
+
             
-                <h5>Add your comment:</h5>
-                <div class="form-group">
-                    <input type="text" class="form-control" id="commentInput" placeholder="Your comment">
-                </div>
-                <button class="btn btn-primary">Post Comment</button>
+            <div class=" comment-form card mb-3">
+              <h5>Add your comment:</h5>
+              <div class="form-group">
+                  {{ render_form(comment_form, "{0}/comment".format(event.id)) }}
+              </div>
             </div>
         </div>
     </div>
+
 {% endblock %}

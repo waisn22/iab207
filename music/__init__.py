@@ -45,6 +45,9 @@ def create_app():
     from . import events
     app.register_blueprint(events.eventbp)
 
+    from . import users
+    app.register_blueprint(users.userbp)
+
     @app.errorhandler(404) 
     # inbuilt function which takes error as parameter 
     def not_found(e): 

@@ -23,22 +23,26 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('event.create') }}">Create Event</a>
                     </li>
+                    {% if current_user.is_authenticated %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('event.show') }}">Show Event</a>
+                        <a class="nav-link" href="{{ url_for('user.bookinghistory') }}">Booking History</a>
                     </li>
+                    {% endif %}
+                    
                 </ul>
-                {% if current_user.is_authenticated %}
-                <a class="nav-item nav-link disabled text-muted" href="#">Welcome {{current_user.name}}</a>
-                <a class="nav-item nav-link" href="{{ url_for('auth.logout') }}">Log Out</a>
+            {% if current_user.is_authenticated %}
+                <a class="nav-item nav-link disabled text-muted px-2" href="#">Welcome {{current_user.name}}</a>
+                <a class="nav-item nav-link text-break" href="{{ url_for('auth.logout') }}">Log Out</a>
              {% else %}
                 <a class="nav-item nav-link custom-signin-btn" href="{{ url_for('auth.register') }}">Register</a>
                 <a class="nav-item nav-link custom-signin-btn" href="{{ url_for('auth.login') }}">Log In</a>
              {% endif %}
                 
-                <form class="custom-search-form">
-                    <input type="text" class="custom-search-input" placeholder="Search">
-                    <button type="submit" class="custom-search-btn"><i class="bi bi-search"></i></button>
-                </form>
+             <form class="form-inline d-flex flex-nowrap" action="{{url_for('main.search')}}" >
+                <input type="text" name="search" class="form-control flex-grow-1 my-1 mr-sm-2"   id="SearchForm">
+                <button type="submit" class="flex-shrink-1 btn btn-primary my-1">Submit</button>
+              </form>
+              
             </div>
         </div>
     </nav>
@@ -53,8 +57,10 @@
     <main>
         {% block content %}
         {% endblock %}
+       
+
     </main>
-    <footer class="custom-footer">
+    <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
