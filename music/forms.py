@@ -10,7 +10,7 @@ class EventForm(FlaskForm):
     name = StringField('Event Name', validators=[InputRequired()])
     status = SelectField('Event Status', choices=[
         ('open', 'Open'),
-        ('inactive', 'Inactive')
+        ('cancelled', 'Cancelled')
     ], validators=[InputRequired()])
     date = DateField('Event Date', format='%Y-%m-%d', validators=[InputRequired()])
     location = StringField('Event Location', validators=[InputRequired()])
@@ -30,6 +30,7 @@ class EventForm(FlaskForm):
     description = TextAreaField('Event Description', validators=[InputRequired()])
     image = FileField('Event Image', validators=[InputRequired()])
     submit_create = SubmitField("Create Event")
+
 
 #User login
 class LoginForm(FlaskForm):

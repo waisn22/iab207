@@ -1,5 +1,5 @@
 import uuid
-from datetime import datetime
+from datetime import datetime, date
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from .models import Event, Comment, Ticket
 from .forms import EventForm, CommentForm, TicketForm
@@ -19,6 +19,10 @@ def show(id):
   totaltickets = event.ticketquantity - event.boughttickets
   if (totaltickets == 0):
     event.status = "Sold Out"
+  d1 = event.date
+  d2 = date.today()
+  if (d1 < d2):
+    event.status = "Inactive"
   ticket_form = TicketForm()
   comment_form = CommentForm()
   form = EventForm()
@@ -46,23 +50,22 @@ def show(id):
     
     event.date = form.date.data
     event.start_time = form.start_time.data
-    event.end_time = form.end_time.data
-    event.creatorid= current_user.id
-    event.name=form.name.data
+    event.end_time = form.end_time.data 
+    event.creatorid= current_user.id 
+    event.name=form.name.data  
     event.description=form.description.data
     event.venue=form.location.data
-    event.image=db_file_path
-    event.price=form.price.data
-    event.category=form.category.data
-    event.status=form.status.data
+    event.image=db_file_path  
+    event.price=form.price.data   
+    event.category=form.category.data    
+    event.status=form.status.data    
     event.ticketquantity=form.ticketquantity.data
-    event.boughttickets = 0
     
     db.session.commit()
     flash('Successfully updated event', 'success')
     
     return redirect(url_for('event.create'))
-  return render_template('event/show.html', event = event, ticket_form = ticket_form, comment_form = comment_form, totaltickets = totaltickets, form = form, user = user)
+  return render_template('event/show.html', event = event, ticket_form = ticket_form, comment_form = comment_form, totaltickets = totaltickets, form = form, user = user, d1 = d1, d2 = d2)
 
 def check_upload_file(form):
     
@@ -97,6 +100,11 @@ def create():
                   ticketquantity=form.ticketquantity.data, boughttickets = 0)
     
     db.session.add(event)
+
+    d1 = event.date
+    d2 = date.today()
+    if (d1 < d2):
+      event.status = "Inactive"
     
     db.session.commit()
     flash('Successfully created new event', 'success')

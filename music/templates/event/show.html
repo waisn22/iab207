@@ -29,7 +29,7 @@
         </div>
 
   
-      {% if current_user.id == event.id %}
+      {% if current_user.id == event.creator_id %}
         <button class="btn btn-warning col-md-12" data-bs-toggle="modal" data-bs-target="#update"> Update Event </button>
       {% endif %}
         
