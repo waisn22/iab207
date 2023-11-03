@@ -60,6 +60,7 @@ def show(id):
     db.session.commit()
     flash('Successfully updated event', 'success')
     
+    return redirect(url_for('event.create'))
   return render_template('event/show.html', event = event, ticket_form = ticket_form, comment_form = comment_form, totaltickets = totaltickets, form = form, user = user)
 
 def check_upload_file(form):
