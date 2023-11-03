@@ -57,7 +57,8 @@ class Comment(db.Model):
 class Ticket(db.Model):
     __tablename__ = 'ticket'
     id = db.Column(db.Integer, primary_key=True)
-    order_number = db.Column(db.String(400), index=True, unique=True, nullable=False)   
+    order_number = db.Column(db.String(400), index=True, unique=True, nullable=False)
+    price = db.Column(db.Numeric(precision=10, scale=2))
     
     #foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
