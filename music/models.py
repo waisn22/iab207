@@ -53,22 +53,5 @@ class Ticket(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     events_id = db.Column(db.Integer, db.ForeignKey('events.id'))
 
-    def to_dict(self):
-        h_dict = {
-            b.name: str(getattr(self, b.name)) for b in self.__table__.columns
-        }
-        h_rooms = []
-        # Add details of related Rooms to the Hotel's h_dict
-        for room in self.rooms:
-            room_data = {
-                'id': room.id,
-                'room_type': room.type,
-                'num_rooms': room.num_rooms,
-                'room_description': room.description,
-                'room_rate': room.rate,
-                'hotel_id': room.hotel_id
-            }
-            h_rooms.append(room_data)
-        h_dict['rooms'] = h_rooms
-        return h_dict
+
 

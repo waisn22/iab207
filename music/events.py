@@ -20,8 +20,8 @@ eventbp = Blueprint('event', __name__, url_prefix='/events')
 @eventbp.route('/show', methods=['GET', 'POST'])
 def show():
   print('Method type: ', request.method)
-  ticket_form = TicketForm()
-  return render_template('event/show.html', ticket_form = ticket_form)
+  form = TicketForm()
+  return render_template('event/show.html', form = form)
 # @eventbp.route('/<id>')
 # def show(id):
 #     event = db.session.scalar(db.select(Event).where(Event.id==id))
@@ -33,8 +33,17 @@ def show():
 @login_required
 def booking():
   tag_line='Using Flask Bootstrap'
-  ticket_form = TicketForm()
-  return redirect(url_for('event.show', id=id),ticket_form=ticket_form)
+  form = TicketForm()
+  if form.validate_on_submit():
+    ticket = Ticket(no=form.quant_tickets.data , event=event, user = current_user)
+    db.session.add(ticket)
+    db.session.comiit()
+
+    flash('Successfully booked your tickets', 'success')
+
+
+
+    return redirect(url_for('event.show', id=id),ticket = form)
 
 @eventbp.route('/create', methods=['GET', 'POST'])
 @login_required
