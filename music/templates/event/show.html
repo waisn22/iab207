@@ -67,7 +67,8 @@
                 {% for comment in event.comments %}
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">{{comment.user.name}}</h5>
+                        <b class="card-title">{{comment.user.name}} <span class="ml-2 text-muted"> - </span></b>
+                        <b class="ml-2 text-muted">{{comment.created_at.strftime("%B %d, %Y %H:%M")}}</b>
                         <p class="card-text">{{comment.text}}</p>
                     </div>
                 </div>
