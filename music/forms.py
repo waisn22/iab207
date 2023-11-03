@@ -62,7 +62,7 @@ class EventSelectForm(FlaskForm):
   
 #Purchase Ticket
 class TicketForm(FlaskForm):
-  quant_tickets = IntegerField("Quantity of Tickets", validators=[InputRequired(), NumberRange(0-10)])
+  quant_tickets = IntegerField("Quantity of Tickets", validators=[InputRequired(), NumberRange(min=0)])
   checkout = SubmitField("Checkout")
   
   

@@ -16,20 +16,26 @@ def show(id):
   print('Method type: ', request.method)
   event = db.session.scalar(db.select(Event).where(Event.id==id))
   totaltickets = event.ticketquantity - event.boughttickets
+  if (totaltickets == 0):
+    event.status = "Sold Out"
   ticket_form = TicketForm()
   comment_form = CommentForm()
 
 
   if (ticket_form.validate_on_submit()==True):
-    for i in range(ticket_form.quant_tickets.data):
+    if (totaltickets >= ticket_form.quant_tickets.data):
+      event.boughttickets += ticket_form.quant_tickets.data
       order_number = str(uuid.uuid4())
       ticket = Ticket(order_number = order_number, event_id=event.id,
                         user=current_user)
       db.session.add(ticket)
-      flash(f'Ticket {str(i+1)} Booked: Order No {order_number}', "success")
+      flash(f'Successfully Booked {ticket_form.quant_tickets.data} Tickets: Order No {order_number}', "success")
+      
     
-    db.session.commit()
-    return redirect(url_for('event.show', id=id))
+      db.session.commit()
+      return redirect(url_for('event.show', id=id))
+    else:
+      flash(f'Requested number of tickets unavailable please try again')
     
 
 
