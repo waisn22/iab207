@@ -59,7 +59,8 @@ class Ticket(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     order_number = db.Column(db.String(400), index=True, unique=True, nullable=False)
     price = db.Column(db.Numeric(precision=10, scale=2))
-    
+    event_name = db.Column(db.String(80))
+    created_at = db.Column(db.DateTime, default=datetime.now())
     #foreign keys
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     event_id = db.Column(db.Integer, db.ForeignKey('events.id'))

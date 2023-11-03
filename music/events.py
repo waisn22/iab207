@@ -27,7 +27,7 @@ def show(id):
       event.boughttickets += ticket_form.quant_tickets.data
       for i in range(ticket_form.quant_tickets.data):
         order_number = str(uuid.uuid4())
-        ticket = Ticket(order_number = order_number, price = event.price, event_id=event.id,
+        ticket = Ticket(order_number = order_number, price = event.price, event_id=event.id, event_name = event.name, 
                         user=current_user)
         db.session.add(ticket)
         flash(f'Successfully Booked Ticket {i+1}: Order No {order_number}', "success")
