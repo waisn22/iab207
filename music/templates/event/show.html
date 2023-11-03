@@ -28,6 +28,11 @@
             </div>
         </div>
 
+  
+      {% if current_user.id == event.id %}
+        <button class="btn btn-warning col-md-12" data-bs-toggle="modal" data-bs-target="#update"> Update Event </button>
+      {% endif %}
+        
         <!-- Tickets -->>
 
       <div class="modal fade" id="purchase" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -40,6 +45,24 @@
             <div class="modal-body">
               <div class="mb-3">
                 {{ render_form(ticket_form) }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+<!-- Update Event -->
+
+      <div class="modal fade" id="update" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Update</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="mb-3">
+                {{ render_form(form) }}
               </div>
             </div>
           </div>

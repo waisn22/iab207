@@ -21,13 +21,13 @@ class User(db.Model, UserMixin):
 class Event(db.Model):
     __tablename__ = 'events'
     id = db.Column(db.Integer, primary_key=True)
-    creatorid = db.Column(db.Integer)
+    
     name = db.Column(db.String(80))
     description = db.Column(db.String(200))
     venue = db.Column(db.String(200))
     date = db.Column(db.Date)
-    starttime = db.Column(db.DateTime)
-    endtime = db.Column(db.DateTime) 
+    starttime = db.Column(db.Time)
+    endtime = db.Column(db.Time) 
     image = db.Column(db.String(200))
     price = db.Column(db.Numeric(precision=10, scale=2))
     category = db.Column(db.String(80))
@@ -38,6 +38,8 @@ class Event(db.Model):
 	# relation to call destination.comments and comment.destination
     comments = db.relationship('Comment', backref='events')
     bookings = db.relationship('Ticket', backref='events')
+
+    creator_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 	# string print method
     def __repr__(self):
         return f"Name: {self.name}"

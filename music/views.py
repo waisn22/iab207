@@ -61,3 +61,8 @@ def ticketquantity():
         return render_template('index.html', event=event)
     else:
         return redirect(url_for('main.index'))
+    
+
+
+
+

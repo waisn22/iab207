@@ -25,7 +25,7 @@ class EventForm(FlaskForm):
         ('hip-hop', 'Hip Hop'),
         ('rnb', 'R and B')
     ])
-    price = DecimalField('Event Price (AUD)', places=2, validators=[InputRequired()])
+    price = IntegerField('Event Price (AUD)', validators=[InputRequired()])
     ticketquantity = IntegerField("Quantity of Tickets", validators=[InputRequired()])
     description = TextAreaField('Event Description', validators=[InputRequired()])
     image = FileField('Event Image', validators=[InputRequired()])
